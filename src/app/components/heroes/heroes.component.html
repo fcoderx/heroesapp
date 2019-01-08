@@ -1,0 +1,58 @@
+<h1>Heroes</h1>
+<hr>
+
+<div class="row animated fadeIn fast">
+    <div class="col-md-12 text-right">
+        <button type="button" 
+                class="btn btn-outline-primary mb-2"
+                [routerLink]="['/heroe', 'nuevo']"
+            >Nuevo héroe
+        </button>
+    </div>
+</div>
+
+<div class="row animated fadeIn fast">
+    <div class="col-md-12 text-center">
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Casa</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let k of heroes | keys; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{heroes[k].nombre}}</td>
+                        <td>{{heroes[k].casa}}</td>
+                        <td class="text-right" *ngIf="deleteFull">
+                            <button [routerLink]="['/heroe', k]" type="button" class="btn btn-outline-warning">
+                                Editar
+                            </button>
+                            <button (click)="deleteFull = false" type="button" class="btn btn-outline-danger ml-2">
+                                Eliminar
+                            </button>
+                        </td>
+                        <td class="text-right" *ngIf="!deleteFull">
+                            <button (click)="deleteFull = true" type="button" class="btn btn-outline-primary">
+                                Cancelar
+                            </button>
+                            <button (click)="borrarHeroe(k)" type="button" class="btn btn-outline-danger ml-2">
+                                Eliminar definitivamente
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div *ngIf="(heroes | keys).length === 0 && !loading" class="alert alert-info">
+                <strong>No hay</strong> registros que mostrar
+            </div>
+            <div *ngIf="(heroes | keys).length === 0" class="alert alert-info">
+                <strong>Cargando...</strong> por favor espere
+            </div>
+        </div>
+    </div>
+</div>
